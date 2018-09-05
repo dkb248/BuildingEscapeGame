@@ -40,14 +40,25 @@ void UGrabberPawn::TickComponent( float DeltaTime, ELevelTick TickType, FActorCo
 
 	// TODO log out to test
 
-	//FString PlayerViewLoc = GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
-		//OUT	PlayerViewPointLocation).ToString();
+	//UE_LOG(LogTemp, Warning, TEXT("Location: %s, Rotation: %s"), 
+	//	*PlayerViewPointLocation.ToString(),
+	//	*PlayerViewPointRotation.ToString()
+	//);
 
-	//FString ObjectPos = GetOwner()->GetTransform().GetLocation().ToString();
-	UE_LOG(LogTemp, Warning, TEXT("Location: %s, Rotation: %s"), 
-		*PlayerViewPointLocation.ToString(),
-		*PlayerViewPointRotation.ToString()
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+
+	// Draw a red trace to visualise
+	DrawDebugLine(
+		GetWorld(),
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FColor(255, 0, 100),
+		false,
+		0.f,
+		0.f,
+		10.f
 	);
+
 
 	// Raycast out to reach distance
 
