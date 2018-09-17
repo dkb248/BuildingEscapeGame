@@ -30,7 +30,7 @@ void UGrabberPawn::TickComponent( float DeltaTime, ELevelTick TickType, FActorCo
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	// Get the player viewpoint this tick
+	/// Get the player viewpoint this tick
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
@@ -47,7 +47,7 @@ void UGrabberPawn::TickComponent( float DeltaTime, ELevelTick TickType, FActorCo
 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 
-	// Draw a red trace to visualise
+	/// Draw a red trace to visualise
 	DrawDebugLine(
 		GetWorld(),
 		PlayerViewPointLocation,
@@ -58,10 +58,24 @@ void UGrabberPawn::TickComponent( float DeltaTime, ELevelTick TickType, FActorCo
 		0.f,
 		10.f
 	);
+	/// Set up query parameters
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
 
+	/// Line-trace aka Raycast out to reach distance
+	FHitResult Hit;
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT Hit,
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		TraceParameters
+		);
 
-	// Raycast out to reach distance
+	/// See what we hit
+	AActor* ActorHit = Hit.GetActor();
+	if (ActorHit) {
+		UE_LOG(LogTemp, Warning, TEXT("Line Trace Hit: %s"), (*ActorHit->GetName()))
+	}
 
-	// See what we hit
 }
 
