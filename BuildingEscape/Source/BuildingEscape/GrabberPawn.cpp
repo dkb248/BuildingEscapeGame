@@ -83,13 +83,13 @@ void UGrabberPawn::Grab() {
 	auto ActorHit = HitResult.GetActor();
 
 	/// If something is hit then try and attach a physics handle
-	if (ActorHit != nullptr) {
+	if (ActorHit) {
 		// attach a physics handle
 		PhysicsHandle->GrabComponent(
 			ComponenttoGrab,
 			NAME_None,
 			ComponenttoGrab->GetOwner()->GetActorLocation(),
-			true
+			true // allow rotation
 		);
 	}
 };
