@@ -7,3 +7,5 @@
 BuildingEscape/Content/StarterContent/
 #VisualStudio Generated files#
 *VC.db
+*.VC.opendb
+*.sln

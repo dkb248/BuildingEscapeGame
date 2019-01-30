@@ -21,7 +21,7 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 private:
-	// how far ahead can we reach
+	// how far ahead of the playerpawn can we reach
 	float reach = 100.f;
 	
 };
