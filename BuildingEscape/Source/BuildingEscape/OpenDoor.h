@@ -37,6 +37,9 @@ private:
 	float LastDoorOpenTime;
 
 	//UPROPERTY(EditAnyWhere)
-		AActor* ActorThatOpens; //Remember pawn inherits from actor
+		
 		AActor* Owner; // the owning door
+
+	// Returns mass of actors on trigger plate
+	float GetTotalMassOfActorsOnPlate();
 };
