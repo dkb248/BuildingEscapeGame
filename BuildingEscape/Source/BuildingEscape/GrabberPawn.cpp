@@ -45,6 +45,7 @@ void UGrabberPawn::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (!PhysicsHandle) { return; }
 	//if the physics handle is attached
 	if (PhysicsHandle->GrabbedComponent) {PhysicsHandle->SetTargetLocation(GetReachLineEnd());}
 	//move the held object each frame
@@ -58,6 +59,7 @@ void UGrabberPawn::Grab() {
 
 	/// If something is hit then try and attach a physics handle
 	if (ActorHit) {
+		if (!PhysicsHandle) { return; }
 		PhysicsHandle->GrabComponent
 		(ComponenttoGrab, 
 		NAME_None, // no bones needed
@@ -67,6 +69,7 @@ void UGrabberPawn::Grab() {
 };
 
 void UGrabberPawn::Release() {
+		if (!PhysicsHandle) { return; }
 		PhysicsHandle->ReleaseComponent();
 }
 
